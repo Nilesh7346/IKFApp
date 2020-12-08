@@ -18,6 +18,12 @@ export class EmployeeComponent implements OnInit {
 
   ngOnInit() {
 
+    this.getAllEmployeeList();
+
+  }
+
+
+  getAllEmployeeList() {
     //get the list of all employees
     this.service.getEmployeeRecords().subscribe(res => {
       if (res == []) {
@@ -36,7 +42,6 @@ export class EmployeeComponent implements OnInit {
         })
       }
     });
-
   }
 
   //intilize temp obj
@@ -57,10 +62,9 @@ export class EmployeeComponent implements OnInit {
     if (fg.value.Id == 0) {
       this.service.postEmployeeRecord(fg.value).subscribe((res:
         any) => {
-        fg.patchValue({
-          Id: parseInt(res.id),          
-        });       
+        this.employeeRecords.clear();
         this.showNotification('insert');
+        this.getAllEmployeeList();        
       })
     }
     else {
