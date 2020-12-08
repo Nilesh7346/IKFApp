@@ -1,0 +1,77 @@
+<!--<div class="grid-table">
+  <div class="thead">
+    <div class="tr">
+      <div class="td">Name</div>
+      <div class="td">Designation</div>
+      <div class="td">Skills</div>
+      <div class="td">DOB</div>
+    </div>
+  </div>
+  <div class="tbody">
+    <form class="tr" [formGroup]="fg" ngFor="let fg of employeeRecords.controls">
+      <div class="td">
+        <input class="form-control" formControlName="Name">
+      </div>
+      <div class="td">
+        <input class="form-control" formControlName="Designation">
+      </div>
+      <div class="td">
+        <input class="form-control" formControlName="Skills">
+        <div class="td">
+          <input class="form-control" formControlName="DOB">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>-->
+
+
+<h2 class="text-center">Employee</h2>
+<div *ngIf="notification">
+  <h3 class="text-right" style="padding-right:50px">
+    <span class="elementToFadeInAndOut">
+      <i class="{{notification.class}}">{{notification.message}}</i>
+    </span>
+  </h3>
+</div>
+<hr>
+<div class="container">
+  <form>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th> Name</th>
+          <th> Designation</th>
+          <th> Skills</th>
+          <th> DOB</th>
+          <th> Action <button type="button" class="btn btn-success btn-sm mr-1" title="Add" (click)="addEmployeeRecord()">+ New Emplyoee</button></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr [formGroup]="fg" *ngFor="let fg of employeeRecords.controls; let i = index">
+          <td>
+            <input type="text" class="form-control" formControlName="Name" required />
+          </td>
+          <td>
+            <input type="text" class="form-control" formControlName="Designation" required />
+          </td>
+          <td>
+            <select class="form-control" formControlName="Skills">
+              <option value="1">DOT NET</option>
+              <option value="2">Java</option>
+              <option value="3">Angular</option>
+            </select>
+            <!--<input type="text" class="form-control" formControlName="Skills" />-->
+          </td>
+          <td>
+            <input type="date" class="form-control" formControlName="DOB">
+          </td>
+          <td>
+            <button type="button" class="btn btn-success btn-sm mr-1" [disabled]="fg.invalid" (click)="recordSubmitOrUpdate(fg)">{{fg.get('Id').value==0?'Submit':'Update'}}</button>
+            <button type="button" class="btn btn-success btn-sm" (click)="deleteRecord(fg.get('Id').value,i)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>
